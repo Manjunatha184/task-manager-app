@@ -1,16 +1,15 @@
 import axios from "axios";
 
-// Determine API URL based on environment
-const getAPIUrl = () => {
-  // Use localhost:8000 for Docker setup (both frontend and backend ports are exposed)
-  return `http://localhost:8000`;
-};
-
-const API_URL = import.meta.env.VITE_API_URL || getAPIUrl();
+// All requests go through Nginx reverse proxy
+// Nginx forwards /api → backend container
+const API_URL = "/api";
 
 // Create axios client instance
 const apiClient = axios.create({
   baseURL: API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 // Add token to requests
