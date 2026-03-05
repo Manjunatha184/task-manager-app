@@ -1,0 +1,339 @@
+/* ============================================
+   AUTH PAGES LAYOUT & ANIMATIONS
+   ============================================ */
+
+@keyframes floatingObject {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -50px) rotate(120deg);
+  }
+  66% {
+    transform: translate(-30px, 30px) rotate(240deg);
+  }
+}
+
+@keyframes gradientMesh {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes floatSmooth {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+.auth-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #F5F6F8;
+}
+
+/* Animated background elements */
+.auth-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.08), transparent 70%);
+  border-radius: 50%;
+  animation: floatSmooth 8s ease-in-out infinite;
+  z-index: 1;
+  filter: blur(40px);
+}
+
+.auth-container::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08), transparent 70%);
+  border-radius: 50%;
+  animation: floatSmooth 10s ease-in-out infinite 1s;
+  z-index: 1;
+  filter: blur(40px);
+}
+
+.auth-card {
+  position: relative;
+  z-index: 10;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  padding: 3rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 600ms ease-out;
+  transition: all 300ms ease-out;
+}
+
+.auth-card:hover {
+  border-color: #D1D5DB;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Card decorative border gradient */
+.auth-card h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  color: #1F2937;
+  text-align: center;
+  font-weight: 700;
+  animation: fadeInDown 600ms ease-out 100ms both;
+}
+
+.auth-card h2 {
+  margin: 0 0 2rem 0;
+  font-size: 1.3rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  animation: fadeInDown 600ms ease-out 150ms both;
+}
+
+/* Form Groups & Floating Labels */
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+  animation: fadeInUp 600ms ease-out;
+}
+
+.form-group:nth-child(1) {
+  animation-delay: 200ms;
+}
+
+.form-group:nth-child(2) {
+  animation-delay: 250ms;
+}
+
+.form-group:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: #F9FAFB;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  transition: all 200ms ease-out;
+}
+
+.form-group input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.form-group input:focus {
+  background: #FFFFFF;
+  border-color: #0EA5E9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.form-group input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #F3F4F6;
+}
+
+/* Error Message in Auth */
+.error-message {
+  animation: slideInRight var(--transition-fast);
+}
+
+/* Buttons */
+.auth-card .btn {
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.9rem;
+  animation: fadeInUp 600ms ease-out 350ms both;
+}
+
+.auth-card .btn-primary {
+  background: #0EA5E9;
+  color: #FFFFFF;
+  position: relative;
+  z-index: 2;
+}
+
+.auth-card .btn-primary:hover:not(:disabled) {
+  background: #0284C7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.auth-card .btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.auth-footer {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  animation: fadeInUp 600ms ease-out 400ms both;
+}
+
+.auth-footer a {
+  color: #0EA5E9;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 200ms ease-out;
+  position: relative;
+  display: inline-block;
+}
+
+.auth-footer a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-purple));
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms ease-out;
+}
+
+.auth-footer a:hover {
+  color: #0284C7;
+}
+
+.auth-footer a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth-container::before {
+    width: 300px;
+    height: 300px;
+    right: -5%;
+  }
+
+  .auth-container::after {
+    width: 250px;
+    height: 250px;
+    left: -5%;
+  }
+
+  .auth-card {
+    padding: 2rem;
+    margin: 1rem;
+    max-width: 100%;
+  }
+
+  .auth-card h1 {
+    font-size: 1.5rem;
+  }
+
+  .auth-card h2 {
+    font-size: 1.1rem;
+  }
+
+  .form-group input {
+    padding: 0.8rem 0.9rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 1rem;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding-top: 2rem;
+  }
+
+  .auth-container::before {
+    width: 200px;
+    height: 200px;
+    top: -20%;
+    right: -15%;
+  }
+
+  .auth-container::after {
+    width: 180px;
+    height: 180px;
+    bottom: -15%;
+    left: -10%;
+  }
+
+  .auth-card {
+    padding: 1.5rem;
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  .auth-card h1 {
+    font-size: 1.3rem;
+  }
+
+  .auth-card h2 {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group label {
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .form-group input {
+    padding: 0.75rem 0.85rem;
+  }
+
+  .auth-footer {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+  }
+}

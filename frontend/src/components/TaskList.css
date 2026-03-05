@@ -1,0 +1,23 @@
+/* ============================================
+   TASK LIST STYLING
+   ============================================ */
+
+/* Task list specific styling is handled in TaskItem.css for consistency */
+
+/* This file contains additional TaskList-specific styles as needed */
+
+.task-list-section {
+  animation: fadeInUp var(--transition-normal);
+}
+
+@media (max-width: 768px) {
+  .task-list-section {
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-list-section {
+    padding: 0;
+  }
+}
