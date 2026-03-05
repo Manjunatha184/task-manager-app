@@ -1,65 +1,30 @@
 trigger:
-
-* main
-
-variables:
-acrName: taskmanager
-acrLoginServer: taskmanager.azurecr.io
-backendImageName: task-backend
-frontendImageName: task-frontend
-tag: latest
+  - main
 
 pool:
-vmImage: 'ubuntu-latest'
+  vmImage: ubuntu-latest
+
+variables:
+  ACR_NAME: taskmanager
+  ACR_LOGIN_SERVER: taskmanager.azurecr.io
+  BACKEND_IMAGE: task-backend
+  FRONTEND_IMAGE: task-frontend
+  TAG: $(Build.BuildId)
 
 steps:
-
-# Login to Azure Container Registry
-
-* task: Docker@2
-  displayName: Login to ACR
-  inputs:
-  command: login
-  containerRegistry: azure-service-connection
-
-# Build Backend Image
-
-* task: Docker@2
-  displayName: Build Backend Image
-  inputs:
-  command: build
-  repository: $(acrLoginServer)/$(backendImageName)
-  dockerfile: backend/Dockerfile
-  tags: |
-  $(tag)
-
-# Push Backend Image
-
-* task: Docker@2
-  displayName: Push Backend Image
-  inputs:
-  command: push
-  repository: $(acrLoginServer)/$(backendImageName)
-  tags: |
-  $(tag)
-
-# Build Frontend Image
-
-* task: Docker@2
-  displayName: Build Frontend Image
-  inputs:
-  command: build
-  repository: $(acrLoginServer)/$(frontendImageName)
-  dockerfile: frontend/Dockerfile
-  tags: |
-  $(tag)
-
-# Push Frontend Image
-
-* task: Docker@2
-  displayName: Push Frontend Image
-  inputs:
-  command: push
-  repository: $(acrLoginServer)/$(frontendImageName)
-  tags: |
-  $(tag)
+  - task: AzureCLI@2
+    displayName: Login to Azure
+    inputs:
+      azureSubscription: azure-service-connection
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az acr login --name $(ACR_NAME)
+  - script: |
+      docker build -t $(ACR_LOGIN_SERVER)/$(BACKEND_IMAGE):$(TAG) ./backend
+      docker push $(ACR_LOGIN_SERVER)/$(BACKEND_IMAGE):$(TAG)
+    displayName: Build and Push Backend Image
+  - script: |
+      docker build -t $(ACR_LOGIN_SERVER)/$(FRONTEND_IMAGE):$(TAG) ./frontend
+      docker push $(ACR_LOGIN_SERVER)/$(FRONTEND_IMAGE):$(TAG)
+    displayName: Build and Push Frontend Image
